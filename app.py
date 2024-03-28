@@ -8,6 +8,9 @@ def home_page():
 
 # Define the route for handling form submission
 @app.route('/submit', methods=['POST'])
+# tells Flask that the function immediately below it 
+#should be called when a request is made to the "/submit" URL path.
+#methods=['POST']: This part specifies that the route should only be triggered for HTTP POST requests. 
 
 def submit():
     if request.method == 'POST':
