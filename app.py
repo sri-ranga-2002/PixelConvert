@@ -6,14 +6,22 @@ app = Flask(__name__)
 def home_page():
     return render_template('image_upload_form.html')
 
+# Define the route for handling form submission
+@app.route('/submit', methods=['POST'])
+
 def submit():
     if request.method == 'POST':
-        image = request.files['image']
-        filename = image.filename
-        file_path = os.path.join('/workspaces/PixelConvert/static/uploads', filename)
-        image.save(file_path)
-        print(file_path)
-        return
+        # Check if the 'image' file is in the request
+        if 'image' in request.files:
+            image = request.files['image']
+            # Save the uploaded image to the 'uploads' folder
+            if image.filename != '':
+                filename = image.filename
+                file_path = os.path.join('static/uploads', filename)
+                image.save(file_path)
+                print("Image saved successfully:", file_path)
+                return "Image uploaded successfully!"
+    return "Error uploading image."
     
 
 if __name__ == '__main__':
